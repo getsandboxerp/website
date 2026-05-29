@@ -111,6 +111,15 @@
   .hero {
     padding: 5rem 0 4rem;
     border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-left {}
+  .hero-right {}
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; }
   }
   .hero-tag {
     display: inline-flex;
@@ -314,36 +323,39 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-tag">
-      <span>▸</span>
-      <span class="inline-es">Open source · Early development</span>
-      <span class="inline-en">Open source · Early development</span>
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span>▸</span>
+        <span class="inline-es">Open source · Early development</span>
+        <span class="inline-en">Open source · Early development</span>
+      </div>
+
+      <h1 data-lang="es">Entornos Odoo<br><em>realistas</em><br>en minutos.</h1>
+      <h1 data-lang="en">Realistic Odoo<br><em>environments</em><br>in minutes.</h1>
+
+      <p class="hero-sub" data-lang="es">
+        Genera empresas Odoo completas y coherentes desde una spec YAML.
+        Con localización LATAM real, causalidad ERP y seeds reproducibles.
+      </p>
+      <p class="hero-sub" data-lang="en">
+        Generate complete, coherent Odoo companies from a YAML spec.
+        With real LATAM localization, ERP causality and reproducible seeds.
+      </p>
+
+      <div class="cta-row">
+        <a href="https://github.com/getsandboxerp/sandboxerp" class="btn-primary" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span data-lang="es">Ver en GitHub</span>
+          <span data-lang="en">View on GitHub</span>
+        </a>
+        <a href="https://github.com/getsandboxerp/sandboxerp#readme" class="btn-ghost" target="_blank">
+          <span data-lang="es">Documentación ↗</span>
+          <span data-lang="en">Documentation ↗</span>
+        </a>
+      </div>
     </div>
 
-    <h1 data-lang="es">Entornos Odoo<br><em>realistas</em><br>en minutos.</h1>
-    <h1 data-lang="en">Realistic Odoo<br><em>environments</em><br>in minutes.</h1>
-
-    <p class="hero-sub" data-lang="es">
-      Genera empresas Odoo completas y coherentes desde una spec YAML.
-      Con localización LATAM real, causalidad ERP y seeds reproducibles.
-    </p>
-    <p class="hero-sub" data-lang="en">
-      Generate complete, coherent Odoo companies from a YAML spec.
-      With real LATAM localization, ERP causality and reproducible seeds.
-    </p>
-
-    <div class="cta-row">
-      <a href="https://github.com/getsandboxerp/sandboxerp" class="btn-primary" target="_blank">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        <span data-lang="es">Ver en GitHub</span>
-        <span data-lang="en">View on GitHub</span>
-      </a>
-      <a href="https://github.com/getsandboxerp/sandboxerp#readme" class="btn-ghost" target="_blank">
-        <span data-lang="es">Documentación ↗</span>
-        <span data-lang="en">Documentation ↗</span>
-      </a>
-    </div>
-
+    <div class="hero-right">
     <div class="code-wrap">
       <div class="code-header">
         <span class="dot dot-r"></span>
@@ -358,6 +370,7 @@
         &nbsp;&nbsp;<span class="c-flag">--profile</span> <span class="c-val">small</span> \<br>
         &nbsp;&nbsp;<span class="c-flag">--seed</span> <span class="c-val">42</span>
       </div>
+    </div>
     </div>
   </div>
 
