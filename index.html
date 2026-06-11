@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SandboxERP — Entornos Odoo realistas</title>
-<meta name="description" content="Generate realistic, reproducible Odoo environments from a YAML spec. LATAM localization included.">
+<meta name="description" content="Generate realistic, reproducible Odoo environments from a YAML spec. LATAM and European localization included.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
@@ -208,6 +208,7 @@ td { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--text2
 td:first-child { color: var(--text); }
 .badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
 .badge-wip { background: rgba(254,188,46,0.08); color: #febc2e; border: 1px solid rgba(254,188,46,0.2); }
+.badge-ok { background: rgba(62,207,142,0.08); color: #3ecf8e; border: 1px solid rgba(62,207,142,0.2); }
 
 /* FOOTER */
 footer {
@@ -245,8 +246,15 @@ footer {
 
 <nav>
   <a href="#" class="brand">
-    <span class="brand-dot"></span>
-    SandboxERP
+    <svg width="120" height="28" viewBox="0 0 340 80" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="80" height="80" rx="12" fill="#1a1a2e"/>
+      <rect x="12" y="12" width="24" height="24" rx="4" fill="#4f8ef7"/>
+      <rect x="44" y="12" width="24" height="24" rx="4" fill="#4f8ef7" opacity="0.5"/>
+      <rect x="12" y="44" width="24" height="24" rx="4" fill="#4f8ef7" opacity="0.5"/>
+      <rect x="44" y="44" width="24" height="24" rx="4" fill="#4f8ef7"/>
+      <text x="96" y="46" font-family="monospace" font-size="32" font-weight="700" fill="#f0ede6" letter-spacing="-1">Sandbox<tspan fill="#4f8ef7">ERP</tspan></text>
+      <text x="96" y="68" font-family="monospace" font-size="11" fill="#9e9b93" textLength="166" lengthAdjust="spacing">ODOO ENVIRONMENT GENERATOR</text>
+    </svg>
   </a>
   <div class="nav-right">
     <div class="lang-toggle">
@@ -273,11 +281,11 @@ footer {
 
       <p class="hero-sub" data-lang="es">
         Genera empresas Odoo completas y coherentes desde una spec YAML.
-        Con localización LATAM real, causalidad ERP y seeds reproducibles.
+        Con localización LATAM y Europa, causalidad ERP y seeds reproducibles.
       </p>
       <p class="hero-sub" data-lang="en">
         Generate complete, coherent Odoo companies from a YAML spec.
-        With real LATAM localization, ERP causality and reproducible seeds.
+        With LATAM and European localization, ERP causality and reproducible seeds.
       </p>
 
       <div class="cta-row">
@@ -342,10 +350,10 @@ footer {
 
     <div class="grid-2">
       <div class="grid-item">
-        <h3 data-lang="es">Localización LATAM</h3>
-        <h3 data-lang="en">LATAM localization</h3>
-        <p data-lang="es">RUT Chile, RFC México. Impuestos reales, monedas locales, módulos l10n configurados.</p>
-        <p data-lang="en">Chilean RUT, Mexican RFC. Real taxes, local currencies, l10n modules configured.</p>
+        <h3 data-lang="es">Localización global</h3>
+        <h3 data-lang="en">Global localization</h3>
+        <p data-lang="es">LATAM (CL, MX) y Europa (NL, PT). Impuestos reales, monedas locales, módulos l10n configurados.</p>
+        <p data-lang="en">LATAM (CL, MX) and Europe (NL, PT). Real taxes, local currencies, l10n modules configured.</p>
       </div>
       <div class="grid-item">
         <h3 data-lang="es">Seeds reproducibles</h3>
@@ -389,13 +397,25 @@ footer {
           <td>🇨🇱 Chile</td>
           <td>RUT</td>
           <td>l10n_cl, l10n_cl_edi</td>
-          <td><span class="badge badge-wip">🚧 In progress</span></td>
+          <td><span class="badge badge-ok">✓ Available</span></td>
         </tr>
         <tr>
           <td>🇲🇽 México</td>
           <td>RFC</td>
           <td>l10n_mx, l10n_mx_edi</td>
-          <td><span class="badge badge-wip">🚧 In progress</span></td>
+          <td><span class="badge badge-ok">✓ Available</span></td>
+        </tr>
+        <tr>
+          <td>🇳🇱 Netherlands</td>
+          <td>BTW-nummer</td>
+          <td>l10n_nl</td>
+          <td><span class="badge badge-ok">✓ Available</span></td>
+        </tr>
+        <tr>
+          <td>🇵🇹 Portugal</td>
+          <td>NIF</td>
+          <td>l10n_pt</td>
+          <td><span class="badge badge-ok">✓ Available</span></td>
         </tr>
       </tbody>
     </table>
