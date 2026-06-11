@@ -233,6 +233,46 @@ footer {
 .hero-left > *:nth-child(4) { animation-delay: 0.3s; }
 .hero-right { animation: fadeUp 0.4s 0.4s ease both; }
 
+/* TERMINAL ANIMATION */
+.terminal-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.terminal-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 6px;
+}
+.terminal-body {
+  padding: 1.25rem 1.5rem;
+  line-height: 1.9;
+  min-height: 320px;
+  max-height: 420px;
+  overflow: hidden;
+}
+.t-line { display: block; white-space: pre; }
+.t-cmd   { color: #f0ede6; }
+.t-arrow { color: #febc2e; }
+.t-ok    { color: #3ecf8e; }
+.t-dim   { color: #5e5c56; }
+.t-val   { color: #f0c674; }
+.t-cursor {
+  display: inline-block;
+  width: 7px; height: 13px;
+  background: #3ecf8e;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* LANG */
 [data-lang] { display: none; }
 .lang-es [data-lang="es"] { display: block; }
@@ -303,19 +343,14 @@ footer {
 
     <!-- COLUMNA DERECHA -->
     <div class="hero-right">
-      <div class="code-wrap">
-        <div class="code-header">
+      <div class="terminal-wrap">
+        <div class="terminal-header">
           <span class="dot dot-r"></span>
           <span class="dot dot-y"></span>
           <span class="dot dot-g"></span>
         </div>
-        <div class="code-body">
-          <span class="c-comment"># <span class="inline-es">Genera empresa retail chilena completa</span><span class="inline-en">Generate a complete Chilean retail company</span></span><br>
-          <span class="c-cmd">sandbox generate</span> \<br>
-          &nbsp;&nbsp;<span class="c-flag">--country</span> <span class="c-val">cl</span> \<br>
-          &nbsp;&nbsp;<span class="c-flag">--industry</span> <span class="c-val">retail</span> \<br>
-          &nbsp;&nbsp;<span class="c-flag">--profile</span> <span class="c-val">small</span> \<br>
-          &nbsp;&nbsp;<span class="c-flag">--seed</span> <span class="c-val">42</span>
+        <div class="terminal-body" id="terminal-body">
+          <span class="t-cursor" id="t-cursor"></span>
         </div>
       </div>
     </div>
@@ -461,6 +496,77 @@ function setLang(lang) {
   });
   document.documentElement.lang = lang;
 }
+
+// Terminal animation
+const LINES = [
+  { text: '$ sandbox generate --country nl --industry retail --profile enterprise --seed 42', cls: 't-cmd', delay: 0 },
+  { text: '', cls: 't-dim', delay: 80 },
+  { text: '  country   : NL', cls: 't-dim', delay: 40 },
+  { text: '  industry  : retail', cls: 't-dim', delay: 40 },
+  { text: '  profile   : enterprise', cls: 't-dim', delay: 40 },
+  { text: '', cls: 't-dim', delay: 60 },
+  { text: '→ Pulling Docker images...', cls: 't-arrow', delay: 200 },
+  { text: '  ✓ odoo:17.0-20250218 already cached', cls: 't-ok', delay: 120 },
+  { text: '  ✓ postgres:15 already cached', cls: 't-ok', delay: 80 },
+  { text: '→ Starting containers...', cls: 't-arrow', delay: 200 },
+  { text: '  ✔ Container env-db-1   Created', cls: 't-ok', delay: 300 },
+  { text: '  ✔ Container env-odoo-1 Created', cls: 't-ok', delay: 200 },
+  { text: '→ Creating sandbox database...', cls: 't-arrow', delay: 400 },
+  { text: '  ✓ Database ready', cls: 't-ok', delay: 600 },
+  { text: '→ Installing modules...', cls: 't-arrow', delay: 200 },
+  { text: '  ✓ l10n_nl', cls: 't-ok', delay: 300 },
+  { text: '  ✓ sale_management', cls: 't-ok', delay: 200 },
+  { text: '  ✓ stock · account · purchase', cls: 't-ok', delay: 200 },
+  { text: '→ Generating master data...', cls: 't-arrow', delay: 300 },
+  { text: '  ✓ 2000 customers + 100 suppliers', cls: 't-ok', delay: 400 },
+  { text: '  ✓ 500 products', cls: 't-ok', delay: 300 },
+  { text: '→ Generating transactions...', cls: 't-arrow', delay: 300 },
+  { text: '  ✓ 2000 sale orders | confirmed: 2000 | invoiced: 2000 | paid: 2000', cls: 't-ok', delay: 800 },
+  { text: '', cls: 't-dim', delay: 100 },
+  { text: '→ Health check...', cls: 't-arrow', delay: 200 },
+  { text: '  company      SandboxERP | EUR | nl_NL', cls: 't-dim', delay: 100 },
+  { text: '  causal chain 2000/2000 confirmed · 2000/2000 invoiced · 2000/2000 paid', cls: 't-ok', delay: 100 },
+  { text: '  data quality ✓ all partners have VAT', cls: 't-ok', delay: 100 },
+  { text: '', cls: 't-dim', delay: 100 },
+  { text: '✓ Environment ready!  http://localhost:8069', cls: 't-ok', delay: 200 },
+  { text: '  user: admin  |  password: admin  |  db: sandbox', cls: 't-dim', delay: 80 },
+];
+
+function runTerminal() {
+  const body = document.getElementById('terminal-body');
+  const cursor = document.getElementById('t-cursor');
+  let i = 0;
+
+  function next() {
+    if (i >= LINES.length) {
+      // restart after pause
+      setTimeout(() => {
+        body.innerHTML = '<span class="t-cursor" id="t-cursor"></span>';
+        i = 0;
+        next();
+      }, 4000);
+      return;
+    }
+    const { text, cls, delay } = LINES[i];
+    setTimeout(() => {
+      const line = document.createElement('span');
+      line.className = 't-line ' + cls;
+      line.textContent = text;
+      const cur = document.getElementById('t-cursor');
+      body.insertBefore(line, cur);
+      // auto-scroll
+      body.scrollTop = body.scrollHeight;
+      i++;
+      next();
+    }, delay);
+  }
+
+  next();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(runTerminal, 800);
+});
 </script>
 </body>
 </html>
